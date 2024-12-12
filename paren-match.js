@@ -3,6 +3,7 @@ function isComplete(string) {
 	const stack = []
 
 	for(let i =0; i<string.length; i++){
+
 		if(string[i] === "{" || string[i] === "[" || string[i] === "("){
 			stack.push(string[i])
 			continue;
@@ -33,13 +34,34 @@ function isComplete(string) {
 		}
 	}
 
-	return true
+	return stack.length === 0
 }
 
-console.log(isComplete("}"))
-console.log(isComplete("[]"))
-console.log(isComplete("{}{{}}"))
-console.log(isComplete("(}{}[[]]"))
-console.log(isComplete("({[(]})"))
+console.log(isComplete("(){}[]")); // true
+console.log(isComplete("{[]}()")); // true
+console.log(isComplete("([{}])")); // true
+console.log(isComplete("{{{{{}}}}}[][][](()()())")); // true
+console.log(isComplete("((((()))))")); // true
+console.log(isComplete("{}[](){}[]")); // true
+console.log(isComplete("(())(())(())")); // true
+console.log(isComplete("[[[]]](){{}}")); // true
+console.log(isComplete("([]{}()[])")); // true
+console.log(isComplete("{{[[(())]]}}"));  // true
 
+console.log(isComplete("(]")); // false
+console.log(isComplete("[)")); // false
+console.log(isComplete("{]")); // false
+console.log(isComplete("([)]")); // false
+console.log(isComplete("}][")); // false
+console.log(isComplete("((((")); // false
+console.log(isComplete("]]]")); // false
+console.log(isComplete("{{{{")); // false
+console.log(isComplete("[[[]]]]{}")); // false
+console.log(isComplete("(())()(]")); // false
+
+console.log(isComplete("{[}]}(())")); // false
+console.log(isComplete("[({})]()]")); // false
+console.log(isComplete("([({})]")); // false
+console.log(isComplete("([]{})(}")); // false
+console.log(isComplete("{([])}]")); // false
 
