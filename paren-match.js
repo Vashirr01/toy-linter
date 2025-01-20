@@ -1,3 +1,4 @@
+//TODO check if it's a non bracket
 function isComplete(string) {
 
 	const stack = []
