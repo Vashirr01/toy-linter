@@ -66,3 +66,4 @@ console.log(isComplete("([({})]")); // false
 console.log(isComplete("([]{})(}")); // false
 console.log(isComplete("{([])}]")); // false
 
+module.exports = {isComplete};
