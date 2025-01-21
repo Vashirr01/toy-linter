@@ -1,27 +1,5 @@
 const fs = require('node:fs');
 const readline = require('node:readline');
-//
-//const fileStream = fs.createReadStream('./unmatching.js', 'utf8');
-//
-//const rl = readline.createInterface({
-//	input: fileStream,
-//	crlfDelay: Infinity,
-//
-//});
-
-
-//const content = '\n\n\nwhatsup';
-//
-//fs.writeFile('./hello.txt', content,{flag: 'a+'}, err =>{
-//	if(err) {
-//		console.error(err)
-//		return;
-//	}
-//	else{
-//
-//	}
-//})
-//
 
 function matches(open, close){
 	return (
@@ -53,25 +31,26 @@ function isComplete(string) {
 			continue;
 		}
 
-		if(stack.length === 0) {
 		if(string[i] === "}" || string[i] === "]" || string[i] === ")"){
+		if(stack.length === 0) {
 				 console.error(`unmatched parenthesis '${string[i]}' at line ${lineNo} column ${column}`)
+				continue
 			}
-		}
 
-		if(stack.length !== 0){
 		const lastOpen = stack.pop()
 		const lastPosition = positionStack.pop()
-		if(!matches(string[i], lastOpen)) {
+
+		if(!matches(lastOpen, string[i])) {
 			console.error(`unmatched parenthesis '${string[i]}' and '${lastOpen}' at line ${lastPosition.line} column ${lastPosition.column}`)
 		}
 		}
+
 	}
 
 	while(stack.length > 0){
 		const lastOpen = stack.pop()
 		const lastPosition = positionStack.pop()
-		console.error(`missing parenthesis for '${lastOpen}' at line '${lastPosition.line}' column '${lastPosition.column}'`)
+		console.error(`missing parenthesis for '${lastOpen}' at line ${lastPosition.line} column ${lastPosition.column}`)
 	}
 }
 
@@ -98,18 +77,5 @@ fs.readFile('./unmatching.js', 'utf8', (err, data) =>{
 		console.log("finished unmatching.js")
 	}
 });
-
-
-//rl.on('line', (line) => {
-//	console.log(isComplete(line))
-//	if(isComplete(line) === false) {
-//		console.error(`error at line ${lineNo}`)
-//		lineNo++
-//	}
-//})
-//
-//rl.on('close', () => {
-//	console.log("finished");
-//})
 
 
